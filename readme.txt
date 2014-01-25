@@ -8,7 +8,7 @@ Version: 1.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Use this free WordPress plugin to insert a CANADIAN BILINGUAL Nutrition Facts Label to pages or posts with a shortcode.
+Use this free WordPress plugin to insert a Canadian Bilingual Nutrition Facts Label to pages or posts with a shortcode.
 
 == Description ==
 
@@ -18,7 +18,6 @@ This plugin creates a 'Label' custom post type which can be assigned to any page
 * When creating the label you can also specify the page/post and use shortcode [nutrition-label] to display the nutrition label that has been attached to the page/post.
 * Developers can add do_shortcode('[nutrition-label]') to their templates.
 
-See http://en.wikipedia.org/wiki/Nutrition_facts_label for more information on nutrition labels.
 
 This plugin was forked from the Easy Nutrition Label Plugin found at http://wordpress.org/plugins/easy-nutrition-facts-label/
 
@@ -32,7 +31,7 @@ This plugin was forked from the Easy Nutrition Label Plugin found at http://word
 
 2. Activate the plugin through the Plugins menu in WordPress
 
-3. Create a label in the new 'Labels' custom post type section of the admin. See units instructions for assistance.
+3. Create a label in the new 'Labels' custom post type section of the admin. See units instructions in FAQs for assistance.
 
 4. Include the shortcode [nutrition-label id=XXX] where you want a specific label to be displayed. Change id=XXX to the specific id number for your label. 
 
@@ -44,10 +43,6 @@ This plugin was forked from the Easy Nutrition Label Plugin found at http://word
 
 [nutrition-label] or [nutrition-label id=XXX]  Change id=XXX to the specific id number for your label. 
 
-= How do I include the nutrition label in a page template. =
-
-When creating the label you can also specify the Page or Post you want the label to appear and include echo do_shortcode("[nutrition-label]"); in the template where you want the label.
-
 
 = What units does the label use? =
 
@@ -55,10 +50,11 @@ When creating the label you can also specify the Page or Post you want the label
 * Milligrams (mg): cholesterol and sodium
 * Percentages: for Vitamines A, C, Calcium and Iron
 
+= How do I include the nutrition label in a page template. =
 
-= Nutrition facts labeling links =
+When creating the label you can also specify the Page or Post you want the label to appear and include echo do_shortcode("[nutrition-label]"); in the template where you want the label.
 
-For more information on Nutrition labeling, visit <a target="_blank" href="http://www.inspection.gc.ca/" rel="nofollow">http://www.inspection.gc.ca</a> and <a target="_blank" href="http://en.wikipedia.org/wiki/Nutrition_facts_label" rel="nofollow">en.wikipedia.org/wiki/Nutrition_facts_label</a>
+
 
 == Screenshots ==
 
