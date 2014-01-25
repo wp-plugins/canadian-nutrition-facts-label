@@ -1,5 +1,5 @@
-=== Canadian Nutrition Facts Label ===
-Contributors: Ruth Maude http://wordpress.org/support/profile/dandelionweb
+﻿=== Canadian Nutrition Facts Label ===
+Contributors: Ruth Maude http://profiles.wordpress.org/dandelionweb
 Tags: food, nutrition, nutrition facts, nutrition label, nutrition labelling, Canadian bilingual nutrition facts, nutrition facts table
 Requires at least: 3.0
 Tested up to: 3.8
