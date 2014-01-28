@@ -49,7 +49,7 @@ This plugin was forked from the Easy Nutrition Label Plugin found at http://word
 
 * Grams (g): totalfat, satfat, transfat, carbohydrates, fiber, sugars, protein
 * Milligrams (mg): cholesterol and sodium
-* Percentages: for Vitamines A, C, Calcium and Iron
+* Percentages: for Vitamins A, C, Calcium and Iron
 
 = How do I include the nutrition label in a page template. =
 
