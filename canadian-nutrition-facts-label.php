@@ -3,7 +3,7 @@
 Plugin Name:	Canadian Nutrition Facts Label
 Plugin URI: 	http://dandelionwebdesign.com/downloads/canadian-nutrition-facts-label-plugin-wordpress/
 Description:	Adds a custom post type "Labels" to generate a CANADIAN BILINGUAL Nutrition Facts Label to pages or posts with a shortcode. Use a shortcode [nutrition-label id=XXX] to add the label to any page or post.
-Version: 1.0.1
+Version: 1.0.2
 Author: 		Dandelion Web Design Inc.
 Author URI:		http://dandelionwebdesign.com/
 
@@ -51,7 +51,8 @@ $rda = array(
 
 /* BASE NUTRIIONAL FIELDS */
 $nutrional_fields = array(
-					'servingsize' 	=> __('Serving Size'),
+					'servingsize' 	=> __('Serving Size - Per'),
+					'servings' 		=> __('Serving Size - pour'),
 					'calories' 		=> __('Calories'),
 					'totalfat' 		=> __('Total Fat'),
 					'satfat' 		=> __('Saturated Fat'),
@@ -132,7 +133,7 @@ function nutr_create_metabox_1()
 	?>
 	
 	<div style="border-bottom: solid 1px #ccc; padding-bottom: 10px; padding-top: 10px;">
-		<div style="width: 75px; margin-right: 10px; float: left; text-align: right; padding-top: 3px;">
+		<div style="width: 175px; margin-right: 10px; float: left; text-align: right; padding-top: 3px;">
 			<?php _e('Page'); ?>
 		</div>
 		<select name="pageid" style="float: left;">
@@ -154,10 +155,10 @@ function nutr_create_metabox_1()
 	<?php
 	foreach( $nutrional_fields as $name => $nutrional_field ) { ?>	
 	<div style="padding: 3px 0;">
-		<div style="width: 75px; margin-right: 10px; float: left; text-align: right; padding-top: 5px;">
+		<div style="width: 175px; margin-right: 10px; float: left; text-align: right; padding-top: 5px;">
 			<?php echo $nutrional_field ?>
 		</div>
-		<input type="text" style=" float: left; width: 120px;" name="<?php echo $name ?>" value="<?php if(isset($meta_values['_' . $name])) { echo esc_attr( $meta_values['_' . $name][0] ); } ?>" />
+		<input type="text" style=" float: left; width: 175px;" name="<?php echo $name ?>" value="<?php if(isset($meta_values['_' . $name])) { echo esc_attr( $meta_values['_' . $name][0] ); } ?>" />
 	
 		<div style="clear:both;"></div>
 	</div>
@@ -221,7 +222,7 @@ function nutr_style()
 {
 ?>
 <style type='text/css'>
-	.wp-nutrition-label { border: 1px solid #ccc; font-family: helvetica, arial, sans-serif; font-size: .9em; width: 22em; padding: 1em 1.25em 1em 1.25em; line-height: 1.4em; margin: 1em; }
+	.wp-nutrition-label { border: 1px solid #ccc; font-family: helvetica, arial, sans-serif; font-size: .9em; max-width: 22em; padding: 1em 1.25em 1em 1.25em; line-height: 1.4em; margin: 1em; }
 	.wp-nutrition-label hr { border:none; border-bottom: solid 8px #666; margin: 3px 0px; }
 	.wp-nutrition-label .heading { font-size: 2.6em; font-weight: 900; margin: 0; line-height: 1em; }
 	.wp-nutrition-label .indent { margin-left: 1em; }
@@ -316,7 +317,7 @@ function nutr_label_generate( $id, $width = 22 )
 	$rtn .= "	<div class='heading'>".__("Valeur nutritive")."</div>\n";
 	
 	$rtn .= "	<div>" . __("Per") . " " . $servingsize . "</div>\n";
-	$rtn .= "	<div>" . __("pour") . " " . $servingsize . "</div>\n";	
+	$rtn .= "	<div>" . __("pour") . " " . $servings . "</div>\n";	
 	$rtn .= "	<hr />\n";
 	$rtn .= "	<div class='item_row cf noborder'>\n";
 	$rtn .= "		<span class='f-left amount'>" . ("Amount") ."</span>\n";
@@ -396,10 +397,6 @@ function nutr_label_generate( $id, $width = 22 )
    $rtn .= "		<span class='f-left'>Iron / Fer </span>\n";
    $rtn .= "		<span class='f-right'>" . $iron .  "%</span>\n";
    $rtn .= "	</div>\n";	
-	
-	
-  
- 
   
 	$rtn .= "</div> <!-- /wp-nutrition-label -->\n\n";
 	return $rtn;  

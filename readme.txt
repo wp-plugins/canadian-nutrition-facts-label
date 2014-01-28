@@ -4,7 +4,7 @@ Tags: food, nutrition, nutrition facts, nutrition label, nutrition labelling, Ca
 Requires at least: 3.0
 Tested up to: 3.8
 Stable tag: trunk
-Version: 1.0.1
+Version: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,7 +23,7 @@ This plugin was forked from the Easy Nutrition Label Plugin found at http://word
 
 * Fields were added for vitamins A, C, Calcium and Iron
 * The label was made bilingual (English/French)
-* Modified Daily Value (DV) to use Canadian recommendations as per http://healthycanadians.gc.ca/eating-nutrition/label-etiquetage/daily-value-valeur-quotidienne-eng.php
+* Set Daily Value (DV) to use Canadian recommendations as per http://healthycanadians.gc.ca/eating-nutrition/label-etiquetage/daily-value-valeur-quotidienne-eng.php
 	
 
 == Installation ==
@@ -36,7 +36,7 @@ This plugin was forked from the Easy Nutrition Label Plugin found at http://word
 
 4. Include the shortcode [nutrition-label id=XXX] where you want a specific label to be displayed. Change id=XXX to the specific id number for your label. 
 
-5. DEVELOPERS: When creating the label you can also specify the Page or Post you want the label to appear and include echo do_shortcode("[nutrition-label]"); in the template where you want the label.
+5. Developers: When creating the label you can also specify the Page or Post you want the label to appear and include echo do_shortcode("[nutrition-label]"); in the template where you want the label.
 
 == Frequently Asked Questions ==
 
@@ -70,14 +70,20 @@ When creating the label you can also specify the Page or Post you want the label
 5. Example generated label
 
 == Upgrade Notice ==
+= 1.0.2 =
+* Create a second field for French version of Serving Size
+* wider field widths in admin
 = 1.0.1 =
-* fix the daily values - Canada Iron DV is 14mg/US is 18mg and Canada Calcium DV is 1100mg/US is 1000mg 
+* set the daily values - Canada Iron DV is 14mg/US is 18mg and Canada Calcium DV is 1100mg/US is 1000mg 
 = 1 =
 * Initial Release, forked and updated from easy-nutrition-facts-label plugin
 
 
 == Changelog ==
+= 1.0.2 =
+* Create a second field for French version of Serving Size
+* wider field widths in admin
 = 1.0.1 =
-* fix the daily values - Canada Iron DV is 14mg/US is 18mg and Canada Calcium DV is 1100mg/US is 1000mg 
+* set the daily values - Canada Iron DV is 14mg/US is 18mg and Canada Calcium DV is 1100mg/US is 1000mg 
 = 1 =
 * Initial release
