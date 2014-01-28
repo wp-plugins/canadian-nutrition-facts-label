@@ -3,7 +3,7 @@
 Plugin Name:	Canadian Nutrition Facts Label
 Plugin URI: 	http://dandelionwebdesign.com/downloads/canadian-nutrition-facts-label-plugin-wordpress/
 Description:	Adds a custom post type "Labels" to generate a CANADIAN BILINGUAL Nutrition Facts Label to pages or posts with a shortcode. Use a shortcode [nutrition-label id=XXX] to add the label to any page or post.
-Version: 1.0.2
+Version: 1.0.3
 Author: 		Dandelion Web Design Inc.
 Author URI:		http://dandelionwebdesign.com/
 
@@ -222,7 +222,7 @@ function nutr_style()
 {
 ?>
 <style type='text/css'>
-	.wp-nutrition-label { border: 1px solid #ccc; font-family: helvetica, arial, sans-serif; font-size: .9em; max-width: 22em; padding: 1em 1.25em 1em 1.25em; line-height: 1.4em; margin: 1em; }
+	.wp-nutrition-label { border: 1px solid #666; font-family: helvetica, arial, sans-serif; font-size: .9em; max-width: 22em; padding: 1em 1.25em 1em 1.25em; line-height: 1.4em; margin: 1em; background:#fff; }
 	.wp-nutrition-label hr { border:none; border-bottom: solid 8px #666; margin: 3px 0px; }
 	.wp-nutrition-label .heading { font-size: 2.6em; font-weight: 900; margin: 0; line-height: 1em; }
 	.wp-nutrition-label .indent { margin-left: 1em; }

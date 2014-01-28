@@ -4,7 +4,7 @@ Tags: food, nutrition, nutrition facts, nutrition label, nutrition labelling, Ca
 Requires at least: 3.0
 Tested up to: 3.8
 Stable tag: trunk
-Version: 1.0.2
+Version: 1.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -55,7 +55,10 @@ This plugin was forked from the Easy Nutrition Label Plugin found at http://word
 
 When creating the label you can also specify the Page or Post you want the label to appear and include echo do_shortcode("[nutrition-label]"); in the template where you want the label.
 
+= How do I adjust the label styles? =
 
+* add the class wp-nutrition-label to your stylesheet
+* each label as an id attribute of wp-nutrition-label-{ID} 
 
 == Screenshots ==
 
@@ -70,6 +73,8 @@ When creating the label you can also specify the Page or Post you want the label
 5. Example generated label
 
 == Upgrade Notice ==
+= 1.0.3 =
+change label background colour from transparent to white 
 = 1.0.2 =
 * Create a second field for French version of Serving Size
 * wider field widths in admin
@@ -80,6 +85,8 @@ When creating the label you can also specify the Page or Post you want the label
 
 
 == Changelog ==
+= 1.0.3 =
+change label background colour from transparent to white 
 = 1.0.2 =
 * Create a second field for French version of Serving Size
 * wider field widths in admin
