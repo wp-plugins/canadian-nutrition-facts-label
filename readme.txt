@@ -74,7 +74,8 @@ When creating the label you can also specify the Page or Post you want the label
 
 == Upgrade Notice ==
 = 1.0.3 =
-change label background colour from transparent to white 
+* change label background colour from transparent to white 
+* update to readme.txt
 = 1.0.2 =
 * Create a second field for French version of Serving Size
 * wider field widths in admin
@@ -86,7 +87,8 @@ change label background colour from transparent to white
 
 == Changelog ==
 = 1.0.3 =
-change label background colour from transparent to white 
+* change label background colour from transparent to white 
+* update to readme.txt
 = 1.0.2 =
 * Create a second field for French version of Serving Size
 * wider field widths in admin
