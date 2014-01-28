@@ -58,7 +58,7 @@ When creating the label you can also specify the Page or Post you want the label
 = How do I adjust the label styles? =
 
 * add the class wp-nutrition-label to your stylesheet
-* each label as an id attribute of wp-nutrition-label-{ID} 
+* each label has an id attribute of wp-nutrition-label-{ID} 
 
 == Screenshots ==
 
