@@ -2,7 +2,7 @@
 Contributors: dandelionweb
 Tags: food, nutrition, nutrition facts, nutrition label, nutrition labelling, Canadian bilingual nutrition facts, nutrition facts table
 Requires at least: 3.0
-Tested up to: 3.8
+Tested up to: 3.9
 Stable tag: trunk
 Version: 1.0.3
 License: GPLv2 or later
