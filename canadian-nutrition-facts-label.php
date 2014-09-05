@@ -2,8 +2,8 @@
 /*
 Plugin Name:	Canadian Nutrition Facts Label
 Plugin URI: 	http://dandelionwebdesign.com/downloads/canadian-nutrition-facts-label-plugin-wordpress/
-Description:	Adds a custom post type "Labels" to generate a CANADIAN BILINGUAL Nutrition Facts Label to pages or posts with a shortcode. Use a shortcode [nutrition-label id=XXX] to add the label to any page or post.
-Version: 1.0.3
+Description:	Create CANADIAN BILINGUAL Nutrition Facts Labels with user generated vitamins Use a shortcode [nutrition-label id=XXX] to add the label to any page or post.
+ Version: 		2.0
 Author: 		Dandelion Web Design Inc.
 Author URI:		http://dandelionwebdesign.com/
 
@@ -106,10 +106,15 @@ function nutr_init()
 		'has_archive' => false, 
 		'hierarchical' => false,
 		'menu_position' => null,
-		'menu_icon' => plugins_url('facts-menu-icon.png', __FILE__),
+		'menu_icon' => plugins_url('img/facts-menu-icon.png', __FILE__),
 		'supports' => array( 'title' )
 	); 
 	register_post_type('nutrition-label', $args);
+	//enqueue script
+	wp_enqueue_script( 'scripts-nutrition-facts-vitamins', plugins_url( '/js/nutrition-facts-vitamins.js', __FILE__), array( 'jquery' ) );
+
+	//enqueue style
+	wp_enqueue_style( 'nutrition-facts-vitamins', plugins_url( '/css/nutrition-facts-vitamins.css', __FILE__ ), array() );
 }
 
 
@@ -132,49 +137,120 @@ function nutr_create_metabox_1()
 	$selected_page_id = isset($meta_values['_pageid']) ? $meta_values['_pageid'][0] : 0;
 	?>
 	
-	<div style="border-bottom: solid 1px #ccc; padding-bottom: 10px; padding-top: 10px;">
-		<div style="width: 175px; margin-right: 10px; float: left; text-align: right; padding-top: 3px;">
-			<?php _e('Page'); ?>
+	<div class="nutritionPluginWrap">
+		<div class="pageSelectWrap">
+			<div class="label">
+				<?php _e('Page'); ?>
+			</div>
+			<select name="pageid" class="left">
+				<option value=""><?php _e('Select a Page...'); ?></option>
+				<optgroup label="<?php _e('Pages'); ?>">
+					<?php foreach($pages as $page) { ?>
+					<option value="<?php echo $page->ID ?>"<?php if($selected_page_id == $page->ID) echo " SELECTED"; ?>><?php echo $page->post_title ?></option>
+					<?php } ?>
+				</optgroup>
+				<optgroup label="<?php _e('Posts'); ?>">
+					<?php foreach($posts as $post) { ?>
+					<option value="<?php echo $post->ID ?>"<?php if($selected_page_id == $post->ID) echo " SELECTED"; ?>><?php echo $post->post_title ?></option>
+					<?php } ?>
+				</optgroup>
+			</select>
+			<div style="clear:both;"></div>
 		</div>
-		<select name="pageid" style="float: left;">
-			<option value=""><?php _e('Select a Page...'); ?></option>
-			<optgroup label="<?php _e('Pages'); ?>">
-				<?php foreach($pages as $page) { ?>
-				<option value="<?php echo $page->ID ?>"<?php if($selected_page_id == $page->ID) echo " SELECTED"; ?>><?php echo $page->post_title ?></option>
-				<?php } ?>
-			</optgroup>
-			<optgroup label="<?php _e('Posts'); ?>">
-				<?php foreach($posts as $post) { ?>
-				<option value="<?php echo $post->ID ?>"<?php if($selected_page_id == $post->ID) echo " SELECTED"; ?>><?php echo $post->post_title ?></option>
-				<?php } ?>
-			</optgroup>
-		</select>
-		<div style="clear:both;"></div>
-	</div>
-	
-	<?php
-	foreach( $nutrional_fields as $name => $nutrional_field ) { ?>	
-	<div style="padding: 3px 0;">
-		<div style="width: 175px; margin-right: 10px; float: left; text-align: right; padding-top: 5px;">
-			<?php echo $nutrional_field ?>
+		<hr/>
+		<div class="nutritionFieldsWrap">
+		<?php
+		foreach( $nutrional_fields as $name => $nutrional_field ) { ?>	
+			<div class='nutritionField' id='<?php echo $name ?>'>
+				<div class='label'>
+					<?php echo $nutrional_field ?>
+				</div>
+				<input type="text" name="<?php echo $name ?>" value="<?php if(isset($meta_values['_' . $name])) { echo esc_attr( $meta_values['_' . $name][0] ); } ?>" />
+			
+				<div class="clear"></div>
+			</div>
+		<?php } ?>
+
+		<?php 
+			/**
+			 * Print extra vitamins
+			 */
+			if( isset($meta_values['_extra_vitamins']) ):
+				$vitamins = unserialize( current($meta_values['_extra_vitamins']) );
+				if( !empty($vitamins) ):
+					$dataId = 1;
+					foreach($vitamins as $name => $vitamin):
+		?>
+
+			<div class='nutritionField dynamic' id='<?php echo $name ?>' data-id='<?php echo $dataId++ ?>'>
+				<div class='label editable' title="Click to edit">
+					<label><?php echo $name ?></label>
+				</div>
+				<input type="hidden" name="extra_vitamin_label[]" class="extraVitaminLabel" value="<?php echo $name ?>">
+				<input type="text" name="extra_vitamin[]" value="<?php echo $vitamin ?>" />
+				<a title="Remove this label" href="#" class="remove"></a>
+				<div class="clear"></div>
+			</div>
+
+		<?php
+					endforeach;
+				endif;
+			endif;	
+
+			//Add a nonce field
+			wp_nonce_field(plugin_basename(__FILE__), 'nutrition-facts-nonce');		
+		?>
+			<a class="addNewVitamin" href="javascript:void(0)">Add New Vitamin</a>
 		</div>
-		<input type="text" style=" float: left; width: 175px;" name="<?php echo $name ?>" value="<?php if(isset($meta_values['_' . $name])) { echo esc_attr( $meta_values['_' . $name][0] ); } ?>" />
-	
-		<div style="clear:both;"></div>
 	</div>
 <?php
-	}
 }
 
 function nutr_save_meta( $post_id, $post ) 
 {
 	global $nutrional_fields;
-	foreach( $nutrional_fields as $name => $nutrional_field ) 
-	{
-		if ( isset( $_POST[ $name ] ) ) { update_post_meta( $post_id, '_' . $name, strip_tags( $_POST[ $name ] ) ); }
+
+	//Check autosave
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		return;
+	}
+
+	/**
+	 * Check for nonce before saving
+	 */
+	if ( isset($_POST['nutrition-facts-nonce']) && 
+		!wp_verify_nonce( $_POST['nutrition-facts-nonce'], plugin_basename(__FILE__) ) ) {
+			return;
+	}			
+
+	/**
+	 * Allow to save if the current user have permission to edit posts
+	 */
+	if( current_user_can( 'edit_posts', $post_id ) ) {
+
+		foreach( $nutrional_fields as $name => $nutrional_field ) 
+		{
+			if ( isset( $_POST[ $name ] ) ) { 
+				update_post_meta( $post_id, '_' . $name, strip_tags( $_POST[ $name ] ) ); 
+			}
+		}
+
+		/**
+		 * Save extra meta data, if any
+		 */
+		if( isset( $_POST['extra_vitamin']) && !empty($_POST['extra_vitamin']) ) {
+			$vitamins = array_combine($_POST['extra_vitamin_label'], $_POST['extra_vitamin']);
+			update_post_meta( $post_id, '_extra_vitamins', $vitamins );
+		} else {
+			delete_post_meta( $post_id, '_extra_vitamins');
+		}
+
+		if ( isset( $_POST[ 'pageid' ] ) ) { 
+			update_post_meta( $post_id, '_pageid', strip_tags( $_POST[ 'pageid' ] ) ); 
+		}
+
 	}
 	
-	if ( isset( $_POST[ 'pageid' ] ) ) { update_post_meta( $post_id, '_pageid', strip_tags( $_POST[ 'pageid' ] ) ); }
 }
 
 
@@ -199,16 +275,16 @@ function nutr_modify_nutritional_label_table( $column )
 }
 function nutr_modify_nutritional_label_table_row( $column_name, $post_id ) 
 {
- 	if($column_name == "nutr_shortcode")
- 	{
- 		echo "[nutrition-label id={$post_id}]";
- 	}
- 	
- 	if($column_name == "nutr_page")
- 	{
- 		echo get_the_title( get_post_meta( $post_id, "_pageid", true ) );
- 	}
- 	
+	if($column_name == "nutr_shortcode")
+	{
+		echo "[nutrition-label id={$post_id}]";
+	}
+	
+	if($column_name == "nutr_page")
+	{
+		echo get_the_title( get_post_meta( $post_id, "_pageid", true ) );
+	}
+	
 }
 
 
@@ -224,7 +300,7 @@ function nutr_style()
 <style type='text/css'>
 	.wp-nutrition-label { border: 1px solid #666; font-family: helvetica, arial, sans-serif; font-size: .9em; max-width: 22em; padding: 1em 1.25em 1em 1.25em; line-height: 1.4em; margin: 1em; background:#fff; }
 	.wp-nutrition-label hr { border:none; border-bottom: solid 8px #666; margin: 3px 0px; }
-	.wp-nutrition-label .heading { font-size: 2.6em; font-weight: 900; margin: 0; line-height: 1em; }
+	.wp-nutrition-label .heading { font-size: 2.6em; font-weight: 900; margin: 0; line-height: 1em; text-justify:auto;}
 	.wp-nutrition-label .indent { margin-left: 1em; }
 	.wp-nutrition-label .small { font-size: .8em; line-height: 1.2em; }
 	.wp-nutrition-label .item_row { border-top: solid 1px #ccc; padding: 3px 0; }
@@ -288,6 +364,7 @@ function nutr_label_generate( $id, $width = 22 )
 	global $rda, $nutrional_fields;
 	
 	$label = get_post_meta( $id );
+	$insufficient = array(); //holds insufficient vitamins data
 	
 	if(!$label) { return false; }
 	
@@ -378,28 +455,82 @@ function nutr_label_generate( $id, $width = 22 )
 	
 	$rtn .= "	<hr />\n";
 	
+	if( $vitamin_a || ($vitamin_a === "0") ) {
     $rtn .= "	<div class='item_row noborder cf'>\n";
     $rtn .= "		<span class='f-left'>Vitamin A / Vitamine A</span>\n";
     $rtn .= "		<span class='f-right'>" . $vitamin_a.  "%</span>\n";
 	$rtn .= "	</div>\n";
+	} else {
+		$insufficient[] = 'vitamin A';
+	}
 
+	if( $vitamin_c || ($vitamin_c === "0") ) {
 	$rtn .= "	<div class='item_row cf'>\n";
     $rtn .= "		<span class='f-left'>Vitamin C / Vitamine C</span>\n";
     $rtn .= "		<span class='f-right'>" . $vitamin_c.  "%</span>\n";
 	$rtn .= "	</div>\n";
+	} else {
+		$insufficient[] = 'vitamin C';
+	}
 	
+	if( $calcium || ($calcium === "0") ) {
    $rtn .= "	<div class='item_row cf'>\n";
    $rtn .= "		<span class='f-left'>Calcium / Calcium </span>\n";
    $rtn .= "		<span class='f-right'>" .$calcium.  "%</span>\n";
    $rtn .= "	</div>\n";
+	} else {
+		$insufficient[] = 'calcium';
+	}
 
+	if( $iron || ($iron === "0") ) {
    $rtn .= "	<div class='item_row cf'>\n";
    $rtn .= "		<span class='f-left'>Iron / Fer </span>\n";
    $rtn .= "		<span class='f-right'>" . $iron .  "%</span>\n";
-   $rtn .= "	</div>\n";	
+		$rtn .= "	</div>\n";
+	} else {
+		$insufficient[] = 'iron';
+	}
+
+   /*
+   	* Extra vitamins
+    */   
+   if( isset($label['_extra_vitamins']) && !empty($label['_extra_vitamins']) ) {
+   		$extraVitamins = unserialize( current($label['_extra_vitamins']) );
+
+   		$sufficient = array();
+   		foreach( $extraVitamins as $key => $vitamin ) {
+			if( $vitamin || $vitamin === '0' ) {
+				$sufficient[$key] = $vitamin;
+			} else {
+				$insufficient[] = strtolower($key);
+			}
+   		}
+
+   		if( !empty($sufficient) ) {
+   			foreach( $sufficient as $extraLabel => $extraVit ) { 
+				$rtn .= "	<div class='item_row cf'>\n";
+				$rtn .= "		<span class='f-left'>" . $extraLabel .  "</span>\n";
+				$rtn .= "		<span class='f-right'>" . $extraVit .  "%</span>\n";
+				$rtn .= "	</div>\n";
+			}
+   		}   			
+
+   }     
+
+   if( !empty($insufficient) ) {
+   		$last = "";
+   		if( count($insufficient) > 1 ) {
+   			$last = array_pop($insufficient);
+   			$last = ", or " . $last;
+   		}
+
+		$rtn .= "	<div class='item_row cf'>\n";
+		$rtn .= 			__("Not a significant source of / Source négligeable de ") . implode(', ', $insufficient); 
+		$rtn .= 			$last . ".\n";
+		$rtn .= "	</div>";		
+	}    
+	
   
-	$rtn .= "</div> <!-- /wp-nutrition-label -->\n\n";
+ 	$rtn .= "</div> <!-- /wp-nutrition-label -->\n\n";
 	return $rtn;  
 }
-
-?>

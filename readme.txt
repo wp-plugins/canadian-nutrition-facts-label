@@ -2,9 +2,9 @@
 Contributors: dandelionweb
 Tags: food, nutrition, nutrition facts, nutrition label, nutrition labelling, Canadian bilingual nutrition facts, nutrition facts table
 Requires at least: 3.0
-Tested up to: 3.9
+Tested up to: 4.0
 Stable tag: trunk
-Version: 1.0.3
+Version: 2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,21 +14,17 @@ Use this free WordPress plugin to insert a Canadian Bilingual Nutrition Facts La
 
 This plugin creates a 'Label' custom post type which can be assigned to any page or post. 
 
+* Includes Vitamins A, C, Calcium and Iron
+* "Not a Significant source of _____" line will be generated for blank fields
+* Add user generated additional vitamins
 * Use the shortcode [nutrition-label id=XXX] to display a nutrition label.
 * When creating the label you can also specify the page/post and use shortcode [nutrition-label] to display the nutrition label that has been attached to the page/post.
 * Developers can add do_shortcode('[nutrition-label]') to their templates.
 
 
-This plugin was forked from the Easy Nutrition Label Plugin found at http://wordpress.org/plugins/easy-nutrition-facts-label/
-
-* Fields were added for vitamins A, C, Calcium and Iron
-* The label was made bilingual (English/French)
-* Set Daily Value (DV) to use Canadian recommendations as per http://healthycanadians.gc.ca/eating-nutrition/label-etiquetage/daily-value-valeur-quotidienne-eng.php
-	
-
 == Installation ==
 
-1. Upload canadian-nutrition-facts-label folder to the /wp-content/plugins directory
+1. Install via the WordPress.org plugin directory or by uploading the canadian-nutrition-facts-label folder to the /wp-content/plugins directory
 
 2. Activate the plugin through the Plugins menu in WordPress
 
@@ -44,21 +40,17 @@ This plugin was forked from the Easy Nutrition Label Plugin found at http://word
 
 [nutrition-label] or [nutrition-label id=XXX]  Change id=XXX to the specific id number for your label. 
 
-
 = What units does the label use? =
 
 * Grams (g): totalfat, satfat, transfat, carbohydrates, fiber, sugars, protein
 * Milligrams (mg): cholesterol and sodium
 * Percentages: for Vitamins A, C, Calcium and Iron
 
-= How do I include the nutrition label in a page template. =
+= How do I add additional vitamins? =
+See screenshot #7 - you click Add New Vitamin then edit the field label to give the vitamin a name
 
-When creating the label you can also specify the Page or Post you want the label to appear and include echo do_shortcode("[nutrition-label]"); in the template where you want the label.
-
-= How do I adjust the label styles? =
-
-* add the class wp-nutrition-label to your stylesheet
-* each label has an id attribute of wp-nutrition-label-{ID} 
+= How do I get the line "Not a significant source of ____" to work? =
+Leave a vitamin blank and it will be added to the line.  If you put a 0 in the field, it will not be added. You can also add new vitamins, label them in the order you want them to appear, and leave the field blank. Such as "Not a significant source of vitamin C, or thiamine."
 
 == Screenshots ==
 
@@ -72,7 +64,15 @@ When creating the label you can also specify the Page or Post you want the label
 
 5. Example generated label
 
+6. Generated label with Vit C left blank showing as "Not a significant source of vitamin C" and with Thiamine added
+
+7. Example how to add additional vitamins 
 == Upgrade Notice ==
+= 2 =
+* Add ability for user generated additional vitamins
+* If a field is left blank add it to text summary line "Not a significant source of"
+* Separated CSS from the main plugin file. Also directories are added for css, js and images.
+
 = 1.0.3 =
 * change label background colour from transparent to white 
 * update to readme.txt
@@ -86,6 +86,11 @@ When creating the label you can also specify the Page or Post you want the label
 
 
 == Changelog ==
+= 2 =
+* Add ability for user generated additional vitamins
+* If a field is left blank add it to text summary line "Not a significant source of"
+* Separated CSS from the main plugin file. Also directories are added for css, js and images.
+
 = 1.0.3 =
 * change label background colour from transparent to white 
 * update to readme.txt
