@@ -106,15 +106,15 @@ function nutr_init()
 		'has_archive' => false, 
 		'hierarchical' => false,
 		'menu_position' => null,
-		'menu_icon' => plugins_url('img/facts-menu-icon.png', __FILE__),
+		'menu_icon' => plugins_url('/img/facts-menu-icon.png', __FILE__),
 		'supports' => array( 'title' )
 	); 
 	register_post_type('nutrition-label', $args);
 	//enqueue script
-	wp_enqueue_script( 'scripts-nutrition-facts-vitamins', plugins_url( '/js/nutrition-facts-vitamins.js', __FILE__), array( 'jquery' ) );
+	wp_enqueue_script( 'scripts-nutrition-facts-vitamins', plugins_url( '/js/nutrition-label.js', __FILE__), array( 'jquery' ) );
 
 	//enqueue style
-	wp_enqueue_style( 'nutrition-facts-vitamins', plugins_url( '/css/nutrition-facts-vitamins.css', __FILE__ ), array() );
+	wp_enqueue_style( 'nutrition-facts-vitamins', plugins_url( '/css/nutrition-label.css', __FILE__ ), array() );
 }
 
 

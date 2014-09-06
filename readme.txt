@@ -1,6 +1,6 @@
 ﻿=== Canadian Nutrition Facts Label ===
 Contributors: dandelionweb
-Tags: food, nutrition, nutrition facts, nutrition label, nutrition labelling, Canadian bilingual nutrition facts, nutrition facts table
+Tags: food, nutrition, nutrition facts, nutrition label, nutrition labelling, Canadian, bilingual, nutrition facts table
 Requires at least: 3.0
 Tested up to: 4.0
 Stable tag: trunk
