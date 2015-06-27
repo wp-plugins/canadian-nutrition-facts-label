@@ -1,5 +1,6 @@
 ﻿=== Canadian Nutrition Facts Label ===
 Contributors: dandelionweb
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=JEMTB4U8SYFL6
 Tags: food, nutrition, nutrition facts, nutrition label, nutrition labelling, Canadian, bilingual, nutrition facts table
 Requires at least: 3.0
 Tested up to: 4.2.2
@@ -21,6 +22,8 @@ This plugin creates a 'Label' custom post type which can be assigned to any page
 * When creating the label you can also specify the page/post and use shortcode [nutrition-label] to display the nutrition label that has been attached to the page/post.
 * Developers can add do_shortcode('[nutrition-label]') to their templates.
 
+= Donations: =
+I appreciate all donations, no matter the size. Further development of this plugin is not contingent on donations, but they are a nice incentive. To donate click on the donation to this plugin button in the sidebar below the Authors.
 
 == Installation ==
 
