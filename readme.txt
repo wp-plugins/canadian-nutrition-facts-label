@@ -23,7 +23,7 @@ This plugin creates a 'Label' custom post type which can be assigned to any page
 * Developers can add do_shortcode('[nutrition-label]') to their templates.
 
 = Donations: =
-I appreciate all donations, no matter the size. Further development of this plugin is not contingent on donations, but they are a nice incentive. To donate click on the donation to this plugin button in the sidebar below the Authors.
+I appreciate all donations, no matter the size. Further development of this plugin is not contingent on donations, but they are a nice incentive. To donate click on the "donate to this plugin" link in the sidebar below Author.
 
 == Installation ==
 
